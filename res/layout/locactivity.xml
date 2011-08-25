@@ -4,12 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffff"  >
-
-    <TextView
+    
+     <TextView
+     android:id="@+id/LocName"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:textColor="#000000"
-    android:text="This is Activity 2" />
+    android:textSize="50px"
+    android:text="Location name" />
 
        <Button android:text="Previous"
         android:id="@+id/Button02"

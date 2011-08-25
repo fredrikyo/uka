@@ -17,9 +17,10 @@ public final class R {
         public static final int medium=0x7f020003;
     }
     public static final class id {
-        public static final int Button02=0x7f050002;
+        public static final int Button02=0x7f050003;
+        public static final int LocName=0x7f050002;
         public static final int icon=0x7f050000;
-        public static final int location_list=0x7f050003;
+        public static final int location_list=0x7f050004;
         public static final int text=0x7f050001;
     }
     public static final class layout {

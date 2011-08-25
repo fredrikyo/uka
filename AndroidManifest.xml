@@ -12,7 +12,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".locactivity"></activity>
+        <activity android:name="test.app.no.LocActivity"></activity>
 
     </application>
     <uses-sdk android:minSdkVersion="7" />

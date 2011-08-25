@@ -40,7 +40,8 @@ public class UkaActivity extends ListActivity {
 	/** Called when the activity is first created. */
 	private ListView list;
 	private ArrayAdapter<CharSequence> adapter;
-	private Location[] locations =  null;
+	protected static Location[] locations =  null;
+	protected static int locPos = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class UkaActivity extends ListActivity {
 		generateLocations();
 		
 		if (locations != null){
-			Toast.makeText(this, "Locations fetched", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Data innhentet", Toast.LENGTH_LONG).show();
 			populateList(locations);
 		}
 	}
@@ -77,14 +78,12 @@ public class UkaActivity extends ListActivity {
 
 		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
-			String text = "Stedet: " + locations[pos].getLocName() + " Temp: " + locations[pos].getTemperature() + " Hum: " + locations[pos].getHumidity() +
-			" Noise: " + locations[pos].getNoise();
-			Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
+//			String text = "Går til " + locations[pos].getLocName();
+//			Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
+			locPos = pos;
 			
-			if (pos	!= 0){
 			Intent myIntent = new Intent(view.getContext(), LocActivity.class);
             startActivityForResult(myIntent, 0);
-			};
 		}
 	}
 
