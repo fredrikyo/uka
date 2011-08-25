@@ -18,6 +18,7 @@ import test.app.no.R;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableContainer;
@@ -40,13 +41,12 @@ public class UkaActivity extends ListActivity {
 	private ListView list;
 	private ArrayAdapter<CharSequence> adapter;
 	private Location[] locations =  null;
-	private Humidity[] humidityValues =  null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		locations = getAllLocations();
+		generateLocations();
 		
 		if (locations != null){
 			Toast.makeText(this, "Locations fetched", Toast.LENGTH_LONG).show();
@@ -59,7 +59,7 @@ public class UkaActivity extends ListActivity {
 
 
 		for (Location loc : locations) {
-			adapter.add(loc.getLocationName());
+			adapter.add(loc.getLocName());
 		}
 
 		setListAdapter(adapter);
@@ -77,15 +77,14 @@ public class UkaActivity extends ListActivity {
 
 		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
-			humidityValues = getHumidity(locations[pos].getLocationId());
-			if (humidityValues != null) {
-				String text = "Humidity at " + locations[pos].getLocationName() + ": " + humidityValues[0].getValue();
-				Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
-			} else {
-				String text = "Humidityvalues is null!";
-				Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
-				
-			}
+			String text = "Stedet: " + locations[pos].getLocName() + " Temp: " + locations[pos].getTemperature() + " Hum: " + locations[pos].getHumidity() +
+			" Noise: " + locations[pos].getNoise();
+			Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
+			
+			if (pos	!= 0){
+			Intent myIntent = new Intent(view.getContext(), LocActivity.class);
+            startActivityForResult(myIntent, 0);
+			};
 		}
 	}
 
@@ -112,10 +111,13 @@ public class UkaActivity extends ListActivity {
 		}
 		return null;
 	}
-
-	public Location[] getAllLocations() {
-		Location[] locations = null;
-		String url = "http://findmyapp.net/findmyapp/locations";
+	
+	public void getData(Location obj) {
+		Location[] locTemp = null;
+		int locId = obj.getLocId();
+//		//hack
+		locId = 1;
+		String url = "http://findmyapp.net/findmyapp/locations/"+locId+"/temperature/latest";
 		InputStream source = retrieveStream(url);
 
 		if (source != null) {
@@ -125,69 +127,61 @@ public class UkaActivity extends ListActivity {
 
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(reader);
-			locations = gson.fromJson(jsonElement, Location[].class);
+			locTemp = gson.fromJson(jsonElement, Location[].class);
+
 		}
-
-		return locations;
-
-	}
-
-	public Humidity[] getHumidity(int locationId) {
-		Humidity[] humidityValues = null;
-		String url = "http://findmyapp.net/findmyapp/locations/" + locationId + "/humidity/latest";
-		InputStream source = retrieveStream(url);
+		String value = locTemp[0].getValue();
+		obj.setTemperature(value);
 		
+		//ONE MORE TIEM :D:D:DD
+
+		url = "http://findmyapp.net/findmyapp/locations/"+locId+"/humidity/latest";
+		source = retrieveStream(url);
+
 		if (source != null) {
-			
+
 			Gson gson = new Gson();
 			Reader reader = new InputStreamReader(source);
-			
+
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(reader);
-			humidityValues = gson.fromJson(jsonElement, Humidity[].class);
-			
+			locTemp = gson.fromJson(jsonElement, Location[].class);
+
 		}
+		value = locTemp[0].getValue();
+		obj.setHumidity(value);
 		
-		return humidityValues;
-		
+		url = "http://findmyapp.net/findmyapp/locations/"+locId+"/noise/latest";
+		source = retrieveStream(url);
+
+		if (source != null) {
+
+			Gson gson = new Gson();
+			Reader reader = new InputStreamReader(source);
+
+			JsonParser parser = new JsonParser();
+			JsonElement jsonElement = parser.parse(reader);
+			locTemp = gson.fromJson(jsonElement, Location[].class);
+
+		}
+		value = locTemp[0].getAverage();
+		obj.setNoise(value);
 	}
 	
-	public int getTemp(int locationId){
-		int temp = 10;
-		String text = "";
-		String url = "http://findmyapp.net/findmyapp/locations/" + locationId + "/temperature/latest";
-		InputStream source = retrieveStream(url);
+	public void generateLocations(){
+		locations = new Location[9];
+		locations[0] = new Location(1, "Strossa");
+		locations[1] = new Location(2, "Storsalen");
+		locations[2] = new Location(3, "Edgar");
+		locations[3] = new Location(6, "Klubben");
+		locations[4] = new Location(10, "Bodegaen");
+		locations[5] = new Location(11, "Knaus");
+		locations[6] = new Location(12, "Selskapssiden");
+		locations[7] = new Location(18, "Daglighallen");
+		locations[8] = new Location(19, "Lyche");
 		
-		if (source != null) {
-
-			Gson gson = new Gson();
-			Reader reader = new InputStreamReader(source);
-
-			JsonParser parser = new JsonParser();
-			JsonElement jsonElement = parser.parse(reader);
-
-//			text = array.toString();
-			text = locations[1].getLocationName();
-			Toast.makeText(this,text, Toast.LENGTH_LONG).show();
-//			temp = jsonElement.getAsInt();
+		for (Location obj : locations) {
+			getData(obj);
 		}
-		
-		return temp;
-	}
-	
-	public int getUserCount(int locationId){
-		int count = 10;
-		String url = "http://findmyapp.net/findmyapp/locations/" + locationId + "/users/count";
-		InputStream source = retrieveStream(url);
-
-		if (source != null){
-			Reader reader = new InputStreamReader(source);
-			reader.toString();
-
-			JsonParser parser = new JsonParser();
-			JsonElement jsonElement = parser.parse(reader);
-			count = jsonElement.getAsInt();
-		}
-		return count;
 	}
 }

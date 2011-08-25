@@ -2,37 +2,76 @@ package test.app.no;
 
 public class Location {
 
-	private String locationName;
-	private int locationId;
-	private String locationStatus;
-
-	public Location(String locationName, int locationId) {
-		this.locationName = locationName;
-		this.locationId = locationId;
+	private int locId;
+	private String locName;
+	
+	private String temperature;
+	private String humidity;
+	private String noise;
+	
+	private String value;
+	private String average;
+	
+	public Location(int locId, String locName, String temperature, String humidity,
+			String noise, String value, String average) {
+		super();
+		this.locId = locId;
+		this.locName = locName;
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.noise = noise;
+		this.value = value;
+		this.average = average;
+	}
+	public Location(int locId, String locName) {
+		super();
+		this.locId = locId;
+		this.locName = locName;
 	}
 
-	public String getLocationName() {
-		return locationName;
+	public String getTemperature() {
+		return temperature;
+	}
+	public String getHumidity() {
+		return humidity;
+	}
+	public String getNoise() {
+		return noise;
+	}
+	public int getLocId() {
+		return locId;
 	}
 
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
+	public void setLocId(int locId) {
+		this.locId = locId;
 	}
 
-	public int getLocationId() {
-		return locationId;
+	public String getLocName() {
+		return locName;
 	}
 
-	public String getLocationStatus() {
-		return locationStatus;
+	public void setLocName(String locName) {
+		this.locName = locName;
 	}
 
-	public void setLocationStatus(String locationStatus) {
-		this.locationStatus = locationStatus;
+	public String getValue() {
+		return value;
 	}
 
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public String getAverage() {
+		return average;
+	}
+
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setHumidity(String humidity) {
+		this.humidity = humidity;
+	}
+
+	public void setNoise(String noise) {
+		this.noise = noise;
 	}
 
 	
