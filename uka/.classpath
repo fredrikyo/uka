@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="C:/Users/Perry/Desktop/google-gson-1.7.1/gson-1.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Perry/Desktop/google-gson-1.7.1/gson-1.7.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Perry/Desktop/google-gson-1.7.1/gson-1.7.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
