@@ -16,7 +16,7 @@ public class LocActivity extends Activity{
         
         TextView tv;
         tv = (TextView)findViewById(R.id.LocName); 
-        tv.setText(UkaActivity.locations[UkaActivity.locPos].getLocName());
+        tv.setText(UkaActivity.locations[UkaActivity.locPos].getLocName()+" PF: "+UkaActivity.locations[UkaActivity.locPos].getPartyFactor());
         
 //wat
         Button next = (Button) findViewById(R.id.Button02);

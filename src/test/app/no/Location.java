@@ -9,6 +9,8 @@ public class Location {
 	private String humidity;
 	private String noise;
 	
+	private int partyFactor;
+	
 	private String value;
 	private String average;
 	
@@ -27,6 +29,14 @@ public class Location {
 		super();
 		this.locId = locId;
 		this.locName = locName;
+	}
+	
+	public void setPartyFactor(){
+		partyFactor = (int) Math.ceil(Math.random() * 100);
+	}
+	
+	public int getPartyFactor() {
+		return partyFactor;
 	}
 
 	public String getTemperature() {
