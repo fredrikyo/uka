@@ -67,6 +67,7 @@ public class UkaActivity extends ListActivity {
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new MyOnItemClickListener());
+		lv.setDivider(null);
 		
 //		ImageView indicator = (ImageView) findViewById(R.id.icon);
 //		Resources res = getResources();
