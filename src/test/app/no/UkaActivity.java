@@ -47,6 +47,8 @@ public class UkaActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		Toast.makeText(this, "Data innhentet", Toast.LENGTH_LONG).show();
+		
 		generateLocations();
 		
 		if (locations != null){
@@ -81,6 +83,7 @@ public class UkaActivity extends ListActivity {
 
 //			String text = "Går til " + locations[pos].getLocName();
 //			Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
+			//test commit
 			locPos = pos;
 			
 			Intent myIntent = new Intent(view.getContext(), LocActivity.class);
