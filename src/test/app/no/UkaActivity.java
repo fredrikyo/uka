@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -46,8 +47,6 @@ public class UkaActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		Toast.makeText(this, "Data innhentet", Toast.LENGTH_LONG).show();
 		
 		generateLocations();
 		
@@ -73,7 +72,7 @@ public class UkaActivity extends ListActivity {
 		
 //		ImageView indicator = (ImageView) findViewById(R.id.icon);
 //		Resources res = getResources();
-//		Drawable myImage = res.getDrawable(R.drawable.high);
+//		Drawable myImage = res.getDrawable(R.drawable.low);
 //		indicator.setImageDrawable(myImage);
 	}
 
